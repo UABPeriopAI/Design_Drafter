@@ -1,0 +1,30 @@
+# mkdocs.yml
+site_name: Webapp4
+site_url: https://sites.uab.edu/periop-datascience/
+repo_url: https://github.com/uabperiopai
+nav:
+  - Home: index.md
+  - 'Webapp4':
+    - Streamlit Interface: 'Webapp4/streamlit_interface.md'
+    - User Interface: 'user_interface/Webapp4_streamlit_app.md'
+    - Example: 'Webapp4/utils/utils_example.md'
+  - 'Webapp4_config':
+    - Config: 'Webapp4_config/config.md'
+
+  - llm_utils: '!include ./llm_utils/mkdocs.yml'
+
+theme:
+  name: readthedocs
+plugins:
+  - search
+  - monorepo:
+      submodules:
+        - path: llm_utils
+          repo_url: ''
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ['Webapp4', 'Webapp4_config', user_interface, llm_utils]  # search packages in these folders
+watch:
+  - .  # reload docs for any file changes
+use_directory_urls: false
