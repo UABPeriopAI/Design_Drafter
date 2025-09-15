@@ -18,17 +18,18 @@ with open(requirements_path, encoding="utf8") as file:
 
 docs_packages = ["mkdocs", "mkdocstrings"]
 
-style_packages = ["black", "flake8", "isort"]
+style_packages = ["black", "rich", "flake8", "isort"]
 
 dev_packages = [
-    "mkdocstrings[python]",
-    "black[jupyter]",
     "autopep8",
-    "pip-tools",
+    "black[jupyter]",
+    "mkdocstrings[python]",
     "pandas",
+    "pip-tools",
     "pytest",
     "pytest-asyncio",
     "pytest-mock",
+    "rich"
 ]
 
 # Define our package

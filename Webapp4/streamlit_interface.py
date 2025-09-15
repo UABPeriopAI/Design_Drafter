@@ -8,7 +8,6 @@ from aiweb_common.streamlit.page_renderer import UIHelper
 from Webapp4.Evaluate.data_loader import DataLoader
 from Webapp4.Evaluate.evaluator import Evaluator
 from Webapp4.utils.file_manager import FileManager
-from Webapp4_config.config import Config
 
 
 class BaseHandler:

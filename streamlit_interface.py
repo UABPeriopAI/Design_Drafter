@@ -3,7 +3,7 @@ import pandas as pd
 from aiweb_common.streamlit.page_renderer import UIHelper
 
 # Imports used exclusively by EvaluateHandler.
-from Webapp4_config.config import Config
+from Webapp4_config.config import Webapp4Config
 
 
 class BaseHandler:
@@ -14,7 +14,7 @@ class BaseHandler:
     def __init__(self, ui_helper=UIHelper):
         # Expect ui_helper to be an object that provides Streamlit functionality (in this case, just st)
         self.ui = ui_helper
-        self.config = Config
+        self.config = Webapp4Config
 
     def _ensure_file(self, file, upload_message, file_types, key, info_message):
         """
