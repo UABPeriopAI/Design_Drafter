@@ -1,5 +1,6 @@
 # config.py
 import logging
+import logging.config
 import sys
 from pathlib import Path
 
@@ -20,12 +21,14 @@ class Webapp4Config:
 
     #Assets
     #Add assets here as needed.
+    HEADER_MARKDOWN = """# Example Markdown \r TODO - update this"""
     EXAMPLE_OUTPUT = Path(INTERMEDIATE_DIR, "Example_Output.csv")
 
     # MLFlow model registry
 
+# Make sure log directory exists
+Webapp4Config.LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
-# Logger
 logging_config = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -37,36 +40,36 @@ logging_config = {
     },
     "handlers": {
         "console": {
-            "class": "logging.StreamHandler",
-            "stream": sys.stdout,
-            "formatter": "minimal",
+            "class": "rich.logging.RichHandler",
             "level": logging.DEBUG,
+            "formatter": "minimal",
+            "markup": True,  # Pass argument to RichHandler
         },
         "info": {
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": Path(LOGS_DIR, "info.log"),
-            "maxBytes": 10485760,  # 1 MB
+            "filename": str(Webapp4Config.LOGS_DIR / "info.log"),
+            "maxBytes": 10485760,
             "backupCount": 10,
             "formatter": "detailed",
             "level": logging.INFO,
-            "mode": "a+", 
+            "mode": "a", 
         },
         "error": {
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": Path(LOGS_DIR, "error.log"),
-            "maxBytes": 10485760,  # 1 MB
+            "filename": str(Webapp4Config.LOGS_DIR / "error.log"),
+            "maxBytes": 10485760,
             "backupCount": 10,
             "formatter": "detailed",
             "level": logging.ERROR,
-            "mode": "a+", 
+            "mode": "a", 
         },
     },
     "root": {
         "handlers": ["console", "info", "error"],
         "level": logging.INFO,
-        "propagate": True,
+        "propagate": False,
     },
 }
+
 logging.config.dictConfig(logging_config)
-logger = logging.getLogger()
-logger.handlers[0] = RichHandler(markup=True)
+logger = logging.getLogger(__name__)
